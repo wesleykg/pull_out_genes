@@ -45,6 +45,6 @@ cleanall:
 	*_blast-alignment.fasta *_blast-missing.txt *_aligned.fasta \
 	all_assemblies_index.idx
 
-.PHONY: align clean cleantemp cleanall search split
+.PHONY: clean cleantemp cleanall search split
 .DELETE_ON_ERROR:
 .PRECIOUS: data/%-assembly.fa data/%-stats.tsv data/%-assembly_cleaned.fasta data/%_trimmed.fa
