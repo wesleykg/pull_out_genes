@@ -7,7 +7,7 @@ search: $(patsubst data/$(genome)-%.fasta, \
 	$(wildcard data/$(genome)-*.fasta))
 
 collect_scaffolds: $(patsubst data/$(genome)-%_blast-results.csv, \
-	data/$(genome)-%_blast-unaligned.fasta, \
+	data/$(genome)-%_scaffolds.fasta, \
 	$(wildcard data/$(genome)-*_blast-results.csv))
 
 split:
@@ -24,26 +24,23 @@ data/%-blastdb: data/%_trimmed.fa
 data/$(genome)-%_blast-results.csv: data/$(genome)-%.fasta
 	cd data/ ; python ../scripts/2_search.py --evalue=1e-20 $(notdir $^)
 
-data/$(genome)-%_blast-unaligned.fasta: data/$(genome)-%_blast-results.csv
+data/$(genome)-%_scaffolds.fasta: data/$(genome)-%_blast-results.csv
 	cd data/ ; python ../scripts/3_collect_scaffolds.py $(notdir $^)
 
 cleantemp:
-	cd data/ ; rm -drf *_blast-unaligned.fasta *_blast-missing.txt \
-	*_aligned.fasta
+	cd data/ ; rm -drf *_scaffolds.fasta *_blast-missing.txt
 
 cleansearch:
-	cd data/ ; rm -drf *_blast-unaligned.fasta *-alignment.fasta \
-	*_muscle-aligned.fasta *_*.xml *_blast-results.csv *_blast-missing.txt
+	cd data/ ; rm -drf *_scaffolds.fasta *-hsp-alignment.fasta.fasta *_*.xml \
+	*_blast-results.csv *_blast-missing.txt all_assemblies_index.idx
 
 clean:
 	cd data/ ; rm -drf *-*.fasta *_trimmed.fa *-blastdb/ *_*.xml *_blast-results.csv \
-	*_blast-alignment.fasta *_blast-missing.txt *_aligned.fasta \
-	all_assemblies_index.idx
+	*-hsp-alignment.fasta *_blast-missing.txt all_assemblies_index.idx
 
 cleanall:
 	cd data/ ; rm -drf *-*.fasta *_trimmed.fa *-blastdb/ *_*.xml *_blast-results.csv \
-	*_blast-alignment.fasta *_blast-missing.txt *_aligned.fasta \
-	all_assemblies_index.idx
+	*-hsp-alignment.fasta *_blast-missing.txt all_assemblies_index.idx
 
 .PHONY: clean cleantemp cleanall search split
 .DELETE_ON_ERROR:

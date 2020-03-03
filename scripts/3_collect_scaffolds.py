@@ -97,7 +97,7 @@ if not (blast_results.hit == 'None found').all():
             checksum_container.append(checksum)
             unique_hits.append(record)
 
-    SeqIO.write(unique_hits, query_name + '_blast-unaligned.fasta',
+    SeqIO.write(unique_hits, query_name + '_scaffolds.fasta',
                 format='fasta')
 
 # Retrieve 1kp species IDs for blast searches with no hits found. Convert the
