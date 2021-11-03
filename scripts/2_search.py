@@ -36,7 +36,7 @@ def blastn(query, evalue, db, out):
                                           db=db, num_threads=2,
                                           out=out, outfmt=5)
     blastn_search()  # initializes the search
-    print 'Searching for', gene_name, 'in', db_name, 'using blastn'
+    print('Searching for', gene_name, 'in', db_name, 'using blastn')
 
 
 def tblastx(query, evalue, db, out):
@@ -44,7 +44,7 @@ def tblastx(query, evalue, db, out):
                                             db=db, num_threads=2,
                                             out=out, outfmt=5)
     tblastx_search()  # initializes the search
-    print 'Searching for', gene_name, 'in', db_name, 'using tblastx'
+    print('Searching for', gene_name, 'in', db_name, 'using tblastx')
 
 
 def retrieve_blast_results(results_file, search_type):
@@ -65,7 +65,7 @@ def retrieve_blast_results(results_file, search_type):
             retrieve_blast_results(tblastx_xml_name, search_type='tblastx')
         elif search_type == 'tblastx':
             with open(query_name + '_blast-results.csv', 'a') as out_results:
-                print 'No hits found for', gene_name, 'in', db_name
+                print('No hits found for', gene_name, 'in', db_name)
                 out_results.write(query_name + ',' + db_id + ',' +
                                   'None found' + '\n')
 
